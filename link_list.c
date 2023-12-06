@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 14:20:51 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/04 15:37:11 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/06 21:39:37 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ t_pipex	*creat_and_format_node(char	**func_path, char *command, int	cmd_number, 
 	t_pipex	*node;
 
 	node = malloc(sizeof(t_pipex));
-	node->command = test_access(func_path, command, node);
+	node->command = test_access(func_path, command);
+	node->flags = get_flags(command, node->command);
 	if (!node->command)
 	{
 		free(node);
@@ -38,9 +39,9 @@ t_pipex *create_link_list(char **func_path, char **commands, int number_of_comma
 	i = 2;
 	first_node = creat_and_format_node(func_path, commands[0], 0, number_of_commands);
 	list = creat_and_format_node(func_path, commands[1], 1, number_of_commands);
-	ft_pipe_lstadd_back(&first_node, list);
 	if (!first_node || !list)
 		return (NULL);
+	ft_pipe_lstadd_back(&first_node, list);
 	next_node = list->next;
 	while (i < number_of_commands)
 	{

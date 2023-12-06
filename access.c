@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:08:06 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/04 15:54:35 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/06 21:40:46 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,30 @@ char	*check_access(char **paths, char *cmd)
 	return (tmp_path);
 }
 
-char	*test_access(char **exe_path, char *command, t_pipex *pipe_struct)
+char	**get_flags(char *command, char *access)
 {
-    char    *tmp_cmd;
+	char	**flags;
+
+	flags = ft_split(command, ' ');
+	free(flags[0]);
+	flags[0] = access;
+	return (flags);
+}
+char	*test_access(char **exe_path, char *command)
+{
     char    *tmp_path;
     char    **if_flags;
 
     if (!exe_path || !command || !*exe_path)
         return (NULL);
     if_flags = ft_split(command, ' ');
-    tmp_cmd = ft_strjoin("/", if_flags[0]);
-    if (!tmp_cmd)
+    if (!if_flags)
         return (NULL);
-    pipe_struct->flags = ft_unsplit(if_flags + 1, " ");
+    if_flags[0] = free_and_join_after("/", if_flags[0]);
+	if (!if_flags[0])
+		return (NULL);
+	tmp_path = check_access(exe_path, if_flags[0]);
     free(if_flags);
-	tmp_path = check_access(exe_path, tmp_cmd);
-    free(tmp_cmd);
     return (tmp_path);
 }
 

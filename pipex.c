@@ -6,38 +6,44 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 19:06:08 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/01 18:09:32 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/04 15:05:36 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char    **get_func_path(char **envp)
+/*void	to_fork(t_pipex *pipe_struct)
 {
-    int     i;
-    char    **func_path;
+	pid_t	pid;
 
-    i = 0;
-    while (envp[i] && !ft_strnstr(envp[i], "PATH=", 5))
-        i++;
-    func_path = ft_split(envp[i] + 5, ':');
-    return (func_path);
-}
-int main(int argc, char **argv, char **envp)
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork failed");
+		exit(FORK_ERROR);
+	}
+	else if (pid == 0)
+	{
+		//execute the child part (Need to refork and execve the command with flags)
+	}
+}*/
+
+int		main(int argc, char **argv, char **envp)
 {
-    int i;
-    int         infile_fd;
-    int         outfile_fd;
-    t_pipex    *pipe_struct;
-	char	    **func_path;
+	int			i;
+	int			pipe_fd[2];
+	t_pipex		*pipe_struct;
+	char		**func_path;
 
-    i = 0;
-    infile_fd = open(argv[1], O_RDWR);
-    outfile_fd = open(argv[argc - 1], O_RDWR);
-    pipe_struct = ft_calloc(sizeof(t_pipex), 1);
-    if (infile_fd == -1 || outfile_fd == -1 || argc < 3)
-        return (1);
-    func_path = get_func_path(envp);
-    pipe_struct->command = test_access(func_path, argv[2], pipe_struct);
-    ft_printf("%s \n%s", pipe_struct->command, pipe_struct->flags);
+	i = 0;
+	if (argc < 4)
+		return (1);
+	pipe(pipe_fd);
+	func_path = get_func_path(envp);
+	pipe_struct = create_link_list(func_path, argv + 2, argc - 3);
+	while (pipe_struct)
+	{
+		ft_printf("%s\n%s\n", pipe_struct->command, pipe_struct->flags);
+		pipe_struct = pipe_struct->next;
+	}
 }

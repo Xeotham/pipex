@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   link_list_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/05 19:27:06 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/04 15:08:03 by mhaouas          ###   ########.fr       */
+/*   Created: 2023/12/04 15:32:36 by mhaouas           #+#    #+#             */
+/*   Updated: 2023/12/04 15:36:03 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex.h"
 
-t_list	*ft_lstlast(t_list *lst)
+t_pipex	*ft_pipe_lstlast(t_pipex *lst)
 {
 	while (lst != NULL)
 	{
@@ -21,4 +21,34 @@ t_list	*ft_lstlast(t_list *lst)
 		lst = lst->next;
 	}
 	return (NULL);
+}
+
+void	ft_pipe_lstadd_back(t_pipex **lst, t_pipex *new)
+{
+	t_pipex	*tmp;
+
+	if (!lst || !new)
+		return ;
+	else if (!(*lst))
+		*lst = new;
+	else
+	{
+		tmp = ft_pipe_lstlast(*lst);
+		tmp->next = new;
+	}
+}
+
+void	ft_pipe_lstclear(t_pipex **lst)
+{
+	t_pipex	*tmp;
+
+	if (!lst)
+		return ;
+	while (*lst != NULL)
+	{
+		tmp = (*lst)->next;
+		free(*lst);
+		*lst = tmp;
+	}
+	*lst = NULL;
 }

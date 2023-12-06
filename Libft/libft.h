@@ -6,18 +6,18 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 12:50:38 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/11/30 16:58:52 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/04 11:25:33 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <fcntl.h>
 # include <stdarg.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include <fcntl.h>
 
 /*=================== MANDATORY PART ===================*/
 int					ft_isalpha(int c);
@@ -55,7 +55,8 @@ void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int nb, int fd);
 char				**ft_split(char const *s, char sep);
-int				ft_count_word(char const *s, char sep);
+int					ft_count_word(char const *s, char sep);
+char				*ft_unsplit(char **tab_to_unsplit, char *sep);
 
 /*===================== BONUS PART =====================*/
 /*==================== BONUS STRUCT ====================*/

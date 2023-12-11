@@ -1,34 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_unsplit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/06 17:01:13 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/11 18:00:21 by mhaouas          ###   ########.fr       */
+/*   Created: 2023/12/04 10:57:32 by mhaouas           #+#    #+#             */
+/*   Updated: 2023/12/04 15:03:39 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-char	*free_and_join_after(char *s1, char *s2)
+static char	*free_join(char *str, char *str2)
 {
 	char	*tmp;
 
-	tmp = ft_strjoin(s1, s2);
-	if (!tmp)
-		return (NULL);
-	free(s2);
+	tmp = ft_strjoin(str, str2);
+	free(str);
 	return (tmp);
 }
 
-void	free_2d_array(char	**array)
+char	*ft_unsplit(char **tab_to_unsplit, char *sep)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
 	i = 0;
-	while(array[i])
-		free(array[i++]);
-	free(array);
+	if (!tab_to_unsplit || !sep || !*tab_to_unsplit)
+		return (NULL);
+	tmp = ft_strdup(tab_to_unsplit[i]);
+	while (tab_to_unsplit[++i])
+	{
+		tmp = free_join(tmp, sep);
+		tmp = free_join(tmp, tab_to_unsplit[i]);
+	}
+	return (tmp);
 }

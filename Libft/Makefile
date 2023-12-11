@@ -70,7 +70,6 @@ OBJPR = $(PRINTF:.c=.o)
 #============== EXECUTABLE PART =============#
 
 all : $(NAME)
-	@echo "\033[32;47;1m** libft.a created **\033[0m"
 
 $(NAME) : $(OBJB) $(OBJM) $(OBJPR)
 	@ar rcs $(NAME) $(OBJB) $(OBJM) $(OBJPR)
@@ -80,11 +79,9 @@ $(NAME) : $(OBJB) $(OBJM) $(OBJPR)
 
 clean :
 	@rm -rf $(OBJB) $(OBJM) $(OBJPR)
-	@echo "\033[32;47;1m** cleaned **\033[0m"
 
-fclean :
-	@rm -rf $(NAME) $(OBJB) $(OBJM) $(OBJPR)
-	@echo "\033[32;47;1m** fcleaned **\033[0m"
+fclean : clean
+	@rm -rf $(NAME)
 
 re : fclean all
 

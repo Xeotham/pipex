@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:08:06 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/06 21:40:46 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/11 18:21:28 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*check_access(char **paths, char *cmd)
 	{
 		tmp_path = ft_strjoin(paths[i], cmd);
 		if (access(tmp_path, X_OK) == 0)
-			break ; 
+			break ;
 		free(tmp_path);
 		i++;
 	}
@@ -42,30 +42,38 @@ char	**get_flags(char *command, char *access)
 }
 char	*test_access(char **exe_path, char *command)
 {
-    char    *tmp_path;
-    char    **if_flags;
+	char	*tmp_path;
+	char	*tmp_cmd;
+	char	**if_flags;
 
-    if (!exe_path || !command || !*exe_path)
-        return (NULL);
-    if_flags = ft_split(command, ' ');
-    if (!if_flags)
-        return (NULL);
-    if_flags[0] = free_and_join_after("/", if_flags[0]);
-	if (!if_flags[0])
+	if (!exe_path || !command || !*exe_path)
+	{
 		return (NULL);
-	tmp_path = check_access(exe_path, if_flags[0]);
-    free(if_flags);
-    return (tmp_path);
+	}
+	if (access(command, X_OK) == 0)
+		return (command);
+	if_flags = ft_split(command, ' ');
+	if (!if_flags)
+		return (NULL);
+	tmp_cmd = ft_strjoin("/", if_flags[0]);
+	if (!tmp_cmd)
+		return (NULL);
+	tmp_path = check_access(exe_path, tmp_cmd);
+	if (!tmp_path)
+		return (NULL);
+	free_2d_array(if_flags);
+	free(tmp_cmd);
+	return (tmp_path);
 }
 
-char    **get_func_path(char **envp)
+char	**get_func_path(char **envp)
 {
-    int     i;
-    char    **func_path;
+	int i;
+	char **func_path;
 
-    i = 0;
-    while (envp[i] && !ft_strnstr(envp[i], "PATH=", 5))
-        i++;
-    func_path = ft_split(envp[i] + 5, ':');
-    return (func_path);
+	i = 0;
+	while (envp[i] && !ft_strnstr(envp[i], "PATH=", 5))
+		i++;
+	func_path = ft_split(envp[i] + 5, ':');
+	return (func_path);
 }

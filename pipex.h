@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:46:04 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/12 08:15:34 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/12 08:41:21 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@
 # define SPLIT_ERROR 4
 # define JOIN_ERROR 5
 # define FD_INPUT_ERROR 6
+# define FD_OUTPUT_ERROR 7
+# define PIPE_FAILED 8
+# define FORK_ERROR 9
+# define DUP_ERROR 10
+# define EXECVE_ERROR 11
 
 /*============ STRUCT ===========*/
 typedef struct s_pipex
@@ -58,5 +63,6 @@ void		parent_process(int fds[2], t_pipex *pipe_struct, char **envp,
 void		child_process(int fds[2], t_pipex *pipe_struct, char **envp,
 				int fd_input);
 void		error_handler(int error_case);
+void		more_error_handler(int error_case);
 
 #endif

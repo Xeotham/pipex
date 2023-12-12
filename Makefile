@@ -9,7 +9,9 @@ SRCS = access.c \
 	link_list.c \
 	link_list_utils.c \
 	pipex.c \
-	utils.c
+	utils.c \
+	process.c \
+	error.c
 #=============== BONUS SOURCES ==============#
 # BONUS = 
 

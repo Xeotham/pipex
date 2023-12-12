@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 17:01:13 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/11 18:00:21 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/11 18:52:23 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	free_2d_array(char	**array)
 	int	i;
 
 	i = 0;
-	while(array[i])
+	while (array[i])
 		free(array[i++]);
 	free(array);
 }

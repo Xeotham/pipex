@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 15:32:36 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/11 18:23:07 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/11 21:28:50 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ void	ft_pipe_lstadd_back(t_pipex **lst, t_pipex *new)
 {
 	t_pipex	*tmp;
 
-	if (!lst || !new)
-		return ;
-	else if (!(*lst))
+	if (!(*lst))
 		*lst = new;
 	else
 	{

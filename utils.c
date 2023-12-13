@@ -1,27 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 17:01:13 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/11 18:52:23 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/12 16:14:01 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-char	*free_and_join_after(char *s1, char *s2)
-{
-	char	*tmp;
-
-	tmp = ft_strjoin(s1, s2);
-	if (!tmp)
-		return (NULL);
-	free(s2);
-	return (tmp);
-}
 
 void	free_2d_array(char	**array)
 {
@@ -31,4 +20,10 @@ void	free_2d_array(char	**array)
 	while (array[i])
 		free(array[i++]);
 	free(array);
+}
+
+void	close_all_fd(int fd[2])
+{
+	close(fd[READ_FD]);
+	close(fd[WRITE_FD]);
 }

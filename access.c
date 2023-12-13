@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:08:06 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/11 21:21:33 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/13 14:00:37 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,20 @@ char	*check_access(char **paths, char *cmd)
 {
 	int		i;
 	char	*tmp_path;
+	int		access_state;
 
 	i = 0;
 	while (paths[i])
 	{
-		tmp_path = ft_strjoin(paths[i], cmd);
+		tmp_path = ft_strjoin(paths[i++], cmd);
 		if (!tmp_path)
 			return (NULL);
-		if (access(tmp_path, X_OK) == 0)
+		access_state = access(tmp_path, X_OK);
+		if (access_state == 0)
 			break ;
 		free(tmp_path);
-		i++;
 	}
-	if (access(tmp_path, X_OK) == -1)
+	if (access_state == -1)
 		return (NULL);
 	return (tmp_path);
 }
@@ -39,7 +40,7 @@ char	**get_flags(char *command, char *access)
 
 	flags = ft_split(command, ' ');
 	if (!flags || !*flags)
-		error_handler(SPLIT_ERROR);
+		return(NULL);
 	free(flags[0]);
 	flags[0] = access;
 	return (flags);
@@ -58,9 +59,18 @@ char	*test_access(char **exe_path, char *command)
 		return (NULL);
 	tmp_cmd = ft_strjoin("/", if_flags[0]);
 	if (!tmp_cmd)
-		return(NULL);
-	tmp_path = check_access(exe_path, tmp_cmd);
+	{
+		free_2d_array(if_flags);
+		return (NULL);
+	}
 	free_2d_array(if_flags);
+	tmp_path = check_access(exe_path, tmp_cmd);
+	if (!tmp_path)
+	{
+		free_2d_array(exe_path);
+		free(tmp_cmd);
+		return (NULL);
+	}
 	free(tmp_cmd);
 	return (tmp_path);
 }

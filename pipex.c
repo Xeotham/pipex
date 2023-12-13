@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 19:06:08 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/12 08:42:59 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/13 13:24:19 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,14 @@ void	when_pid_isnt_zero(int pipe_fd[2], int fd_input[2],
 
 	pid = fork();
 	if (pid == -1)
-		error_handler(FORK_ERROR);
+		fork_check(fd_input, pipe_fd, pipe_struct, envp);
 	else if (pid == 0)
 		parent_process(pipe_fd, pipe_struct->next, envp, fd_input[WRITE_FD]);
 	else
 	{
 		wait(NULL);
-		close(pipe_fd[READ_FD]);
-		close(pipe_fd[WRITE_FD]);
-		close(fd_input[READ_FD]);
-		close(fd_input[WRITE_FD]);
+		close_all_fd(pipe_fd);
+		close_all_fd(fd_input);
 		return ;
 	}
 }
@@ -41,18 +39,15 @@ void	pipex(char **argv, char **envp, t_pipex *pipe_struct)
 
 	fd_input[READ_FD] = open(argv[0], O_RDONLY);
 	if (fd_input[READ_FD] == -1)
-		error_handler(FD_INPUT_ERROR);
+		fd_input_check(fd_input, pipe_struct, READ_FD);
 	fd_input[WRITE_FD] = open(argv[3], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd_input[WRITE_FD] == -1)
-	{
-		close(fd_input[READ_FD]);
-		error_handler(FD_OUTPUT_ERROR);
-	}
+		fd_input_check(fd_input, pipe_struct, WRITE_FD);
 	if (pipe(pipe_fd) == -1)
-		error_handler(PIPE_FAILED);
+		pipe_fd_check(-1, fd_input, pipe_struct, envp);
 	pid = fork();
 	if (pid == -1)
-		error_handler(FORK_ERROR);
+		fork_check(fd_input, pipe_fd, pipe_struct, envp);
 	else if (pid == 0)
 		child_process(pipe_fd, pipe_struct, envp, fd_input[READ_FD]);
 	else

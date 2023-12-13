@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_bonus.c                                      :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 20:15:44 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/12 15:43:38 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/13 14:25:02 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ fork() function.";
 	error_message[DUP_ERROR] = "ERROR : Failed to execute the dup2() function.";
 	error_message[EXECVE_ERROR] = "ERROR : Failed to execute one of the input \
 function.";
-	ft_printf("%s%s%s", RED, error_message[error_case], RESET_COLOR);
+	ft_printf("%s%s%s\n", RED, error_message[error_case], RESET_COLOR);
 	exit(EXIT_FAILURE);
 }

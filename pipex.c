@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 19:06:08 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/13 13:24:19 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/13 16:03:42 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,9 @@ void	pipex(char **argv, char **envp, t_pipex *pipe_struct)
 
 int	main(int argc, char **argv, char **envp)
 {
-	int		i;
 	t_pipex	*pipe_struct;
 	char	**func_path;
 
-	i = 0;
 	if (argc != 5)
 		error_handler(ARGS_ERROR);
 	func_path = get_func_path(envp);

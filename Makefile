@@ -16,37 +16,39 @@ SRCS = access.c \
 #=============== BONUS SOURCES ==============#
 #BONUS = 
 
+#============ TRANSFORM .c TO .o ============#
+#============== MANDATORY PART ==============#
+OBJM = $(SRCS:.c=.o)
+
+#================ BONUS PART ================#
+OBJB = $(BONUS:.c=.o)
+
 #================= MAKE NAME ================#
 
 LIBFT = Libft/libft.a
 
 all : $(NAME)
 
-make : 
-	@: make -C Libft
+$(LIBFT) :
+	@ $(MAKE) -C Libft all
 
-make_clean : 
-	@: make clean -C Libft
+%.o : %.c pipex.h
+	@ $(CC) $(FLAGS) -c $< -o $@
 
-make_fclean : 
-	@: make fclean -C Libft
+bonus :
+	@ $(CC) $(FLAGS) $(BONUS) $(LIBFT) -o $(NAME)
 
-make_re : 
-	@: make re -C Libft
+$(NAME) : $(OBJM) $(LIBFT)
+	@ $(CC) $(FLAGS) $(OBJM) $(LIBFT) -o $(NAME)
 	
-pipex_remove :
-	@rm -rf $(NAME)
+clean :
+	@ $(MAKE) -C Libft clean
+	rm -rf $(OBJM)
 
-bonus : make
-	$(CC) $(FLAGS) $(BONUS) $(LIBFT) -o $(NAME)
+fclean :
+	@ $(MAKE) -C Libft fclean
+	rm -rf $(NAME) $(OBJM)
 
-$(NAME) : make
-	$(CC) $(FLAGS) $(SRCS) $(LIBFT) -o $(NAME)
-	
-clean : make_clean pipex_remove
+re : fclean all
 
-fclean : make_fclean pipex_remove
-
-re : make_re pipex_remove all
-
-.PHONY : all clean fclean re make make_clean make_fclean make_re pipex_remove
+.PHONY : all clean fclean re bonus

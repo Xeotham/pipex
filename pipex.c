@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 19:06:08 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/13 16:03:42 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/14 14:52:56 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	pipex(char **argv, char **envp, t_pipex *pipe_struct)
 	fd_input[READ_FD] = open(argv[0], O_RDONLY);
 	if (fd_input[READ_FD] == -1)
 		fd_input_check(fd_input, pipe_struct, READ_FD);
-	fd_input[WRITE_FD] = open(argv[3], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	fd_input[WRITE_FD] = open(argv[3], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd_input[WRITE_FD] == -1)
 		fd_input_check(fd_input, pipe_struct, WRITE_FD);
 	if (pipe(pipe_fd) == -1)
@@ -51,7 +51,10 @@ void	pipex(char **argv, char **envp, t_pipex *pipe_struct)
 	else if (pid == 0)
 		child_process(pipe_fd, pipe_struct, envp, fd_input[READ_FD]);
 	else
+	{
+		wait(NULL);
 		when_pid_isnt_zero(pipe_fd, fd_input, pipe_struct, envp);
+	}
 }
 
 int	main(int argc, char **argv, char **envp)

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fd_fork_handle.c                                   :+:      :+:    :+:   */
+/*   fd_fork_handle_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 10:19:41 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/18 15:11:17 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/19 13:12:19 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	fd_input_check(int fd_input[2], t_pipex *pipe_struct, int fd_type)
 {
@@ -28,7 +28,7 @@ void	fd_input_check(int fd_input[2], t_pipex *pipe_struct, int fd_type)
 	return ;
 }
 
-void	pipe_fd_check(int pipe_state, int fd_input[2], t_pipex *pipe_struct,
+void	pipe_fd_check_man(int pipe_state, int fd_input[2], t_pipex *pipe_struct,
 	char **envp)
 {
 	if (pipe_state == -1)
@@ -41,12 +41,23 @@ void	pipe_fd_check(int pipe_state, int fd_input[2], t_pipex *pipe_struct,
 	return ;
 }
 
-void	fork_check(int fd_input[2], int pipe_fd[2], t_pipex *pipe_struct,
+void	fork_check_man(int fd_input[2], int pipe_fd[2], t_pipex *pipe_struct,
 	char **envp)
 {
 	free_2d_array(envp);
 	close_all_fd(fd_input);
 	close_all_fd(pipe_fd);
+	ft_pipe_lstclear(&pipe_struct);
+	error_handler(FORK_ERROR);
+}
+
+void	fork_check_bonus(int fd_input[3][2], t_pipex *pipe_struct,
+	char **envp)
+{
+	free_2d_array(envp);
+	close_all_fd(fd_input[FD_INPUT]);
+	close_all_fd(fd_input[PIPE_FD_1]);
+	close_all_fd(fd_input[PIPE_FD_2]);
 	ft_pipe_lstclear(&pipe_struct);
 	error_handler(FORK_ERROR);
 }

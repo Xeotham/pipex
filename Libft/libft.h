@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 12:50:38 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/04 11:25:33 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/19 13:19:43 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void				ft_putnbr_fd(int nb, int fd);
 char				**ft_split(char const *s, char sep);
 int					ft_count_word(char const *s, char sep);
 char				*ft_unsplit(char **tab_to_unsplit, char *sep);
+char				*ft_strcat(char *s1, char *s2, char *array);
 
 /*===================== BONUS PART =====================*/
 /*==================== BONUS STRUCT ====================*/

@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 19:06:08 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/14 14:52:56 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/18 13:41:24 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	when_pid_isnt_zero(int pipe_fd[2], int fd_input[2],
 	if (pid == -1)
 		fork_check(fd_input, pipe_fd, pipe_struct, envp);
 	else if (pid == 0)
-		parent_process(pipe_fd, pipe_struct->next, envp, fd_input[WRITE_FD]);
+		parent_process(pipe_fd, pipe_struct->next, envp, fd_input);
 	else
 	{
 		wait(NULL);
@@ -49,10 +49,12 @@ void	pipex(char **argv, char **envp, t_pipex *pipe_struct)
 	if (pid == -1)
 		fork_check(fd_input, pipe_fd, pipe_struct, envp);
 	else if (pid == 0)
-		child_process(pipe_fd, pipe_struct, envp, fd_input[READ_FD]);
+		child_process(pipe_fd, pipe_struct, envp, fd_input);
 	else
 	{
+		close(fd_input[READ_FD]);
 		wait(NULL);
+		close(pipe_fd[WRITE_FD]);
 		when_pid_isnt_zero(pipe_fd, fd_input, pipe_struct, envp);
 	}
 }

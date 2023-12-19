@@ -6,27 +6,26 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:46:04 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/15 16:05:29 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/19 14:49:16 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
-/*=========== LIBRARY ===========*/
+/*================================== LIBRARY =================================*/
 # include "Libft/libft.h"
 # include <sys/wait.h>
 
-/*========= PIPE FD TYPE ========*/
+/*================================ PIPE FD TYPE ==============================*/
 # define READ_FD 0
 # define WRITE_FD 1
 
-/*============= COLOR ===========*/
+/*==================================== COLOR =================================*/
 
 # define RED "\033[31;1m"
 # define RESET_COLOR "\033[0m"
 
-/*========== ERROR CASE =========*/
-
+/*================================= ERROR CASE ===============================*/
 enum e_error {
 	ARGS_ERROR ,
 	FIND_PATH_ERROR ,
@@ -42,7 +41,7 @@ enum e_error {
 	EXECVE_ERROR
 } ;
 
-/*============ STRUCT ===========*/
+/*=================================== STRUCT =================================*/
 typedef struct s_pipex
 {
 	char	*command;
@@ -52,8 +51,16 @@ typedef struct s_pipex
 	void	*next;
 }			t_pipex;
 
-/*========== PROTOTYPE ==========*/
+/*================================ PROTOTYPE =================================*/
+/*__________________________________ pipex.c _________________________________*/        
 
+/******************************************************************************/
+/* main() will take the char **envp and send it to get_func_path() to get the */
+/* "PATH". Once done, it will execute creat_link_list() to make the link list */
+/* which contains all the command to execute later in the program.            */
+/* After making the list, it will just go to pipex() to execute t                                                             */
+/******************************************************************************/
+int	main(int argc, char **argv, char **envp);
 /******************************************************************************/
 /* test_access() is a function that check which path is needed to execute     */
 /* the linux command, and return the command precede by the correct path      */
@@ -134,9 +141,17 @@ void		fd_input_check(int fd_input[2], t_pipex *pipe_struct, int fd_type);
 void		pipe_fd_check(int pipe_state, int fd_input[2],
 				t_pipex *pipe_struct, char **envp);
 
+/******************************************************************************/
+/* fork_check() is a function made to check if the fork was executed.         */
+/* In case of error, the function free the link list, close the infile and    */
+/*outfile fd and exit with an error.                                          */
+/******************************************************************************/
 void		fork_check(int fd_input[2], int pipe_fd[2],
 				t_pipex *pipe_struct, char **envp);
 
+/******************************************************************************/
+/* close_all_fd() is a function that close all the fd of a int fd[2] type.    */
+/******************************************************************************/
 void		close_all_fd(int fd[2]);
 
 #endif

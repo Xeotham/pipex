@@ -47,10 +47,10 @@ $(LIBFT) :
 	@ $(CC) $(FLAGS) -c $< -o $@
 
 bonus : $(OBJB) $(LIBFT)
-	@ $(CC) $(FLAGS) $(OBJB) $(LIBFT) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJB) $(LIBFT) -o $(NAME)
 
 $(NAME) : $(OBJM) $(LIBFT)
-	@ $(CC) $(FLAGS) $(OBJM) $(LIBFT) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJM) $(LIBFT) -o $(NAME)
 	
 clean :
 	@ $(MAKE) -C Libft clean

@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 10:07:56 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/19 13:12:08 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/19 14:53:12 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	here_doc_setup(t_pipex *pipe_struct, int argc, char **argv, char **envp)
 		error_handler(MALLOC_ERROR);
 	fd_out = open("TMP_FILE", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd_out == -1)
-		fd_input_check(&fd_out, pipe_struct, WRITE_FD);
+	{
+		ft_pipe_lstclear(&pipe_struct);
+		error_handler(FD_INPUT_ERROR);
+	}
 	while (ft_strnstr(content, limiter, ft_strlen(limiter)) == 0)
 	{
 		ft_printf("heredoc> ");

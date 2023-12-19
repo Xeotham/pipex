@@ -40,7 +40,7 @@ char	**get_flags(char *command, char *access)
 
 	flags = ft_split(command, ' ');
 	if (!flags || !*flags)
-		return(NULL);
+		return (NULL);
 	free(flags[0]);
 	flags[0] = access;
 	return (flags);

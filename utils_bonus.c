@@ -17,7 +17,6 @@ void	free_2d_array(char	**array)
 	int	i;
 
 	i = 0;
-	
 	while (array[i])
 		free(array[i++]);
 	free(array);
@@ -29,7 +28,7 @@ void	close_all_fd(int fd[2])
 	close(fd[WRITE_FD]);
 }
 
-int		get_mirror_pipe(int pipe_needed)
+int	get_mirror_pipe(int pipe_needed)
 {
 	if (pipe_needed == PIPE_FD_1)
 		return (PIPE_FD_2);
@@ -40,7 +39,7 @@ int		get_mirror_pipe(int pipe_needed)
 char	*join_and_free(char *s1, char *s2)
 {
 	char	*tmp;
-	
+
 	if (!s1)
 		s1 = ft_calloc(1, 1);
 	if (!s1)

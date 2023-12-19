@@ -37,14 +37,14 @@ void	next_process(int pipe_fd[2], int fd_input[2],
 void	first_process(t_pipex *pipe_struct, int fd_input[2], char **envp)
 {
 	int	pipe_fd[2];
-	
+
 	if (pipe(pipe_fd) == -1)
 		pipe_fd_check_man(-1, fd_input, pipe_struct, envp);
 	pipe_struct->pid = fork();
 	if (pipe_struct->pid == -1)
 		fork_check_man(fd_input, pipe_fd, pipe_struct, envp);
 	else if (pipe_struct->pid == 0)
-		process(fd_input, pipe_struct,envp, pipe_fd);
+		process(fd_input, pipe_struct, envp, pipe_fd);
 	else
 	{
 		close(fd_input[READ_FD]);
@@ -54,14 +54,15 @@ void	first_process(t_pipex *pipe_struct, int fd_input[2], char **envp)
 	}
 }
 
-void	pipex(int	argc, char **argv, char **envp, t_pipex *pipe_struct)
+void	pipex(int argc, char **argv, char **envp, t_pipex *pipe_struct)
 {
 	int		fd_input[2];
 
 	fd_input[READ_FD] = open(argv[0], O_RDONLY);
 	if (fd_input[READ_FD] == -1)
 		fd_input_check(fd_input, pipe_struct, READ_FD);
-	fd_input[WRITE_FD] = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	fd_input[WRITE_FD] = open(argv[argc - 1], \
+	O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd_input[WRITE_FD] == -1)
 		fd_input_check(fd_input, pipe_struct, WRITE_FD);
 	first_process(pipe_struct, fd_input, envp);

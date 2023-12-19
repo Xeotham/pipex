@@ -169,7 +169,8 @@ void				first_process(t_pipex *pipe_struct, int fd_input[2],
 
 void				here_doc_setup(t_pipex *pipe_struct, int argc, char **argv,
 						char **envp);
-char	*gnl(int fd);
-void	here_doc_next(t_pipex *pipe_struct, char **envp, char **argv, int argc);
+char				*gnl(int fd);
+void				here_doc_next(t_pipex *pipe_struct, char **envp,
+						char **argv, int argc);
 
 #endif

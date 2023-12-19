@@ -82,8 +82,8 @@ char	*dup_to_new_line(char *storage)
 
 char	*gnl_loop(char *storage, int fd)
 {
-	char *buffer;
-	int nb_char;
+	char	*buffer;
+	int		nb_char;
 
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)

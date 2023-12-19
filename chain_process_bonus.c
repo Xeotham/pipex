@@ -16,7 +16,7 @@ void	process_to_chain(int pipe_fd[2], int fd_input[2], t_pipex *pipe_struct,
 	char **envp)
 {
 	int	all_fd[3][2];
-	
+
 	all_fd[FD_INPUT][READ_FD] = fd_input[READ_FD];
 	all_fd[FD_INPUT][WRITE_FD] = fd_input[WRITE_FD];
 	all_fd[PIPE_FD_1][READ_FD] = pipe_fd[READ_FD];
@@ -24,7 +24,8 @@ void	process_to_chain(int pipe_fd[2], int fd_input[2], t_pipex *pipe_struct,
 	chain_process(all_fd, PIPE_FD_1, pipe_struct, envp);
 }
 
-void	is_equal(t_pipex *pipe_struct, int all_fd[3][2], int pipe_needed, char **envp)
+void	is_equal(t_pipex *pipe_struct, int all_fd[3][2], int pipe_needed,
+	char **envp)
 {
 	int	mirror_pipe;
 
@@ -43,7 +44,8 @@ void	is_equal(t_pipex *pipe_struct, int all_fd[3][2], int pipe_needed, char **en
 	}
 }
 
-void	is_not_equal(t_pipex *pipe_struct, int all_fd[3][2], int pipe_needed, char **envp)
+void	is_not_equal(t_pipex *pipe_struct, int all_fd[3][2], int pipe_needed,
+	char **envp)
 {
 	int	mirror_pipe;
 

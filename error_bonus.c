@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 20:15:44 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/19 13:12:23 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/19 13:55:35 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	error_handler(int error_case)
 {
 	char	*error_message[13];
 
-	error_message[ARGS_ERROR] = "ERROR : Too few or too much arguments.";
+	error_message[ARGS_ERROR] = "ERROR : Too few arguments.";
 	error_message[FIND_PATH_ERROR] = "ERROR : No 'PATH' environement variable.";
 	error_message[SPLIT_ERROR] = "ERROR : Error when spliting the 'PATH' \
 environement variable.";

@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:46:04 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/19 14:49:16 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/19 14:56:04 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,11 @@ typedef struct s_pipex
 /* main() will take the char **envp and send it to get_func_path() to get the */
 /* "PATH". Once done, it will execute creat_link_list() to make the link list */
 /* which contains all the command to execute later in the program.            */
-/* After making the list, it will just go to pipex() to execute t                                                             */
+/* After making the list, it will just go to pipex() to execute the rest of   */
+/*the code. At last, once everything is done, it will clear the link list.    */
 /******************************************************************************/
 int	main(int argc, char **argv, char **envp);
+
 /******************************************************************************/
 /* test_access() is a function that check which path is needed to execute     */
 /* the linux command, and return the command precede by the correct path      */

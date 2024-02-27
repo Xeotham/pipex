@@ -48,15 +48,11 @@ t_pipex	*create_link_list(char **func_path, char **commands,
 	first_node = creat_and_format_node(func_path, commands[0], 0,
 			number_of_commands);
 	if (!first_node)
-	{
-		free_2d_array(func_path);
 		error_handler(LLIST_FAIL);
-	}
 	second_node = creat_and_format_node(func_path, commands[1], 1,
 			number_of_commands);
 	if (!second_node)
 	{
-		free_2d_array(func_path);
 		ft_pipe_lstclear(&first_node);
 		error_handler(LLIST_FAIL);
 	}

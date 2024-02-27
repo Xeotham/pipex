@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 19:06:08 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/19 14:57:30 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/20 14:15:14 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,22 @@
 void	when_pid_isnt_zero(int pipe_fd[2], int fd_input[2],
 		t_pipex *pipe_struct, char **envp)
 {
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == -1)
+	pipe_struct->pid = fork();
+	if (pipe_struct->pid == -1)
 		fork_check(fd_input, pipe_fd, pipe_struct, envp);
-	else if (pid == 0)
+	else if (pipe_struct->pid == 0)
 		parent_process(pipe_fd, pipe_struct->next, envp, fd_input);
 	else
 	{
-		wait(NULL);
 		close_all_fd(pipe_fd);
 		close_all_fd(fd_input);
+		waitpid(pipe_struct->pid, NULL, 0);
 		return ;
 	}
 }
 
 void	pipex(char **argv, char **envp, t_pipex *pipe_struct)
 {
-	pid_t	pid;
 	int		pipe_fd[2];
 	int		fd_input[2];
 
@@ -45,17 +42,17 @@ void	pipex(char **argv, char **envp, t_pipex *pipe_struct)
 		fd_input_check(fd_input, pipe_struct, WRITE_FD);
 	if (pipe(pipe_fd) == -1)
 		pipe_fd_check(-1, fd_input, pipe_struct, envp);
-	pid = fork();
-	if (pid == -1)
+	pipe_struct->pid = fork();
+	if (pipe_struct->pid == -1)
 		fork_check(fd_input, pipe_fd, pipe_struct, envp);
-	else if (pid == 0)
+	else if (pipe_struct->pid == 0)
 		child_process(pipe_fd, pipe_struct, envp, fd_input);
 	else
 	{
 		close(fd_input[READ_FD]);
-		wait(NULL);
 		close(pipe_fd[WRITE_FD]);
 		when_pid_isnt_zero(pipe_fd, fd_input, pipe_struct, envp);
+		waitpid(pipe_struct->pid, NULL, 0);
 	}
 }
 

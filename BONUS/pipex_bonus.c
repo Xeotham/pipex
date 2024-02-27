@@ -6,7 +6,7 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 19:06:08 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/19 13:11:50 by mhaouas          ###   ########.fr       */
+/*   Updated: 2023/12/20 14:17:46 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	next_process(int pipe_fd[2], int fd_input[2],
 			process(pipe_fd, pipe_struct, envp, fd_input);
 		else
 		{
-			wait(NULL);
 			close_all_fd(pipe_fd);
 			close_all_fd(fd_input);
+			waitpid(pipe_struct->pid, NULL, 0);
 			return ;
 		}
 	}
@@ -49,8 +49,8 @@ void	first_process(t_pipex *pipe_struct, int fd_input[2], char **envp)
 	{
 		close(fd_input[READ_FD]);
 		close(pipe_fd[WRITE_FD]);
-		wait(NULL);
 		next_process(pipe_fd, fd_input, pipe_struct->next, envp);
+		waitpid(pipe_struct->pid, NULL, 0);
 	}
 }
 

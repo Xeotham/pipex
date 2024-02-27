@@ -6,14 +6,14 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:46:04 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/19 14:56:04 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/02/27 09:35:04 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 /*================================== LIBRARY =================================*/
-# include "Libft/libft.h"
+# include "../Libft/libft.h"
 # include <sys/wait.h>
 
 /*================================ PIPE FD TYPE ==============================*/
@@ -26,20 +26,21 @@
 # define RESET_COLOR "\033[0m"
 
 /*================================= ERROR CASE ===============================*/
-enum e_error {
-	ARGS_ERROR ,
-	FIND_PATH_ERROR ,
-	SPLIT_PATHE_ERROR ,
-	LLIST_FAIL ,
-	SPLIT_ERROR ,
-	JOIN_ERROR ,
-	FD_INPUT_ERROR ,
-	FD_OUTPUT_ERROR ,
-	PIPE_FAILED ,
-	FORK_ERROR ,
-	DUP_ERROR ,
+enum		e_error
+{
+	ARGS_ERROR,
+	FIND_PATH_ERROR,
+	SPLIT_PATHE_ERROR,
+	LLIST_FAIL,
+	SPLIT_ERROR,
+	JOIN_ERROR,
+	FD_INPUT_ERROR,
+	FD_OUTPUT_ERROR,
+	PIPE_FAILED,
+	FORK_ERROR,
+	DUP_ERROR,
 	EXECVE_ERROR
-} ;
+};
 
 /*=================================== STRUCT =================================*/
 typedef struct s_pipex
@@ -48,11 +49,12 @@ typedef struct s_pipex
 	char	**flags;
 	int		cmd_number;
 	int		total_number_of_cmd;
+	pid_t	pid;
 	void	*next;
 }			t_pipex;
 
 /*================================ PROTOTYPE =================================*/
-/*__________________________________ pipex.c _________________________________*/        
+/*__________________________________ pipex.c _________________________________*/
 
 /******************************************************************************/
 /* main() will take the char **envp and send it to get_func_path() to get the */
@@ -61,7 +63,7 @@ typedef struct s_pipex
 /* After making the list, it will just go to pipex() to execute the rest of   */
 /*the code. At last, once everything is done, it will clear the link list.    */
 /******************************************************************************/
-int	main(int argc, char **argv, char **envp);
+int			main(int argc, char **argv, char **envp);
 
 /******************************************************************************/
 /* test_access() is a function that check which path is needed to execute     */
@@ -140,16 +142,16 @@ void		fd_input_check(int fd_input[2], t_pipex *pipe_struct, int fd_type);
 /* In case of error, the function free the link list, close the infile and    */
 /*outfile fd and exit with an error.                                          */
 /******************************************************************************/
-void		pipe_fd_check(int pipe_state, int fd_input[2],
-				t_pipex *pipe_struct, char **envp);
+void		pipe_fd_check(int pipe_state, int fd_input[2], t_pipex *pipe_struct,
+				char **envp);
 
 /******************************************************************************/
 /* fork_check() is a function made to check if the fork was executed.         */
 /* In case of error, the function free the link list, close the infile and    */
 /*outfile fd and exit with an error.                                          */
 /******************************************************************************/
-void		fork_check(int fd_input[2], int pipe_fd[2],
-				t_pipex *pipe_struct, char **envp);
+void		fork_check(int fd_input[2], int pipe_fd[2], t_pipex *pipe_struct,
+				char **envp);
 
 /******************************************************************************/
 /* close_all_fd() is a function that close all the fd of a int fd[2] type.    */

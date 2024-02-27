@@ -5,27 +5,27 @@ FLAGS = -Wall -Wextra -Werror -g
 #=================== NAME ===================#
 NAME = pipex
 #============= MANDATORY SOUCES =============#
-SRCS = access.c \
-	link_list.c \
-	link_list_utils.c \
-	pipex.c \
-	utils.c \
-	process.c \
-	error.c \
-	fd_fork_handle.c
+SRCS = SRCS/access.c \
+	SRCS/link_list.c \
+	SRCS/link_list_utils.c \
+	SRCS/pipex.c \
+	SRCS/utils.c \
+	SRCS/process.c \
+	SRCS/error.c \
+	SRCS/fd_fork_handle.c
 
 #=============== BONUS SOURCES ==============#
-BONUS = access_bonus.c \
-	chain_process_bonus.c \
-	error_bonus.c \
-	fd_fork_handle_bonus.c \
-	gnl_bonus.c \
-	heredoc_bonus.c \
-	link_list_bonus.c \
-	link_list_utils_bonus.c \
-	pipex_bonus.c \
-	process_bonus.c \
-	utils_bonus.c
+BONUS = BONUS/access_bonus.c \
+	BONUS/chain_process_bonus.c \
+	BONUS/error_bonus.c \
+	BONUS/fd_fork_handle_bonus.c \
+	BONUS/gnl_bonus.c \
+	BONUS/heredoc_bonus.c \
+	BONUS/link_list_bonus.c \
+	BONUS/link_list_utils_bonus.c \
+	BONUS/pipex_bonus.c \
+	BONUS/process_bonus.c \
+	BONUS/utils_bonus.c
 
 #============ TRANSFORM .c TO .o ============#
 #============== MANDATORY PART ==============#

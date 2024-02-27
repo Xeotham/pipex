@@ -6,14 +6,14 @@
 /*   By: mhaouas <mhaouas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:46:04 by mhaouas           #+#    #+#             */
-/*   Updated: 2023/12/19 13:13:09 by mhaouas          ###   ########.fr       */
+/*   Updated: 2024/02/27 09:34:57 by mhaouas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_BONUS_H
 # define PIPEX_BONUS_H
 /*=========== LIBRARY ===========*/
-# include "Libft/libft.h"
+# include "../Libft/libft.h"
 # include <sys/wait.h>
 
 /*========== PIPE TYPE ==========*/
